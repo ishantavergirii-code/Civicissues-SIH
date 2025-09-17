@@ -1,164 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Issues - Civic Sense</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Issues - Civic Sense</title>
+<link rel="stylesheet" href="style.css">
+<!-- Leaflet CSS & Fullscreen plugin -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css">
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+    }
+    header {
+        background-color: #007bff;
+        padding: 15px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    header .logo { font-size: 1.5em; font-weight: bold; }
+    nav ul { list-style: none; display: flex; gap: 15px; padding-left: 0; }
+    nav a { color: white; text-decoration: none; font-weight: bold; }
+    nav a.active { text-decoration: underline; }
+    section.track-issues-section {
+        flex: 1;
+        padding: 20px;
+        max-width: 1000px;
+        margin: auto;
+    }
+    table { width: 100%; border-collapse: collapse; background-color: white; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: top; }
+    th { background-color: #007bff; color: white; }
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+    .status.Submitted { background-color: orange; }
+    .status.InProgress { background-color: blue; }
+    .status.Resolved { background-color: green; }
+    .view-map {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
 
-        header {
-            background-color: #007bff;
-            padding: 15px;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 15px;
-            padding-left: 0;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav a.active {
-            text-decoration: underline;
-        }
-
-        section.track-issues-section {
-            flex: 1;
-            padding: 20px;
-            max-width: 900px;
-            margin: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .status {
-            padding: 5px 10px;
-            border-radius: 4px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .status.Submitted {
-            background-color: orange;
-        }
-
-        .status.In\ Progress {
-            background-color: blue;
-        }
-
-        .status.Resolved {
-            background-color: green;
-        }
-
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #007bff;
-            color: white;
-        }
-    </style>
+    /* Map + Image Container */
+    #mapContainer {
+        display: none;   /* completely hidden before clicking */
+        margin: 20px auto;
+        width: 90%;
+        max-width: 900px;
+        background: #fff;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        gap: 10px;
+        padding: 10px;
+        flex-direction: row;
+    }
+    #imagePanel {
+        flex: 1;
+        min-width: 250px;
+        border-right: 1px solid #ccc;
+        text-align: center;
+    }
+    #imagePanel img {
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        margin-bottom: 10px;
+    }
+    #mapBox {
+        flex: 2;
+        min-height: 300px;
+        border-radius: 6px;
+    }
+    footer {
+        text-align: center;
+        padding: 15px;
+        background-color: #007bff;
+        color: white;
+    }
+</style>
 </head>
-
 <body>
-    <header>
-        <div class="logo">CivicSense</div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="report.html">Report Issue</a></li>
-                <li><a href="track.html" class="active">Track Issue</a></li>
-                <li><a href="guide.html">Civic Sense Guide</a></li>
-                <li><a href="admin.html">Admin</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <div class="logo">CivicSense</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="report.html">Report Issue</a></li>
+            <li><a href="track.html" class="active">Track Issue</a></li>
+            <li><a href="guide.html">Civic Sense Guide</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
+    </nav>
+</header>
+<section class="track-issues-section">
+    <h1>Track Reported Issues</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Pothole on Main St</td>
+                <td>Large pothole causing traffic issues</td>
+                <td>Road</td>
+                <td>Main Street, City Center</td>
+                <td>
+                    <span class="status Submitted">Submitted</span><br>
+                    <button class="view-map" data-lat="18.497771" data-lng="73.795687" data-image="img1.jpg">View Map</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Streetlight not working</td>
+                <td>The streetlight near the park is not working</td>
+                <td>Electricity</td>
+                <td>Park Avenue, Block 5</td>
+                <td>
+                    <span class="status InProgress">In Progress</span><br>
+                    <button class="view-map" data-lat="18.500" data-lng="73.800" data-image="img2.jpg">View Map</button>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Overflowing Trash Bin</td>
+                <td>Garbage bin overflowing near school</td>
+                <td>Sanitation</td>
+                <td>School Road, West End</td>
+                <td>
+                    <span class="status Resolved">Resolved</span><br>
+                    <button class="view-map" data-lat="18.505" data-lng="73.810" data-image="img3.jpg">View Map</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="mapContainer">
+        <div id="imagePanel"></div>
+        <div id="mapBox"></div>
+    </div>
+</section>
+<footer>
+    <p>&copy; 2025 Civic Sense Reporting System | All Rights Reserved</p>
+</footer>
+<!-- Leaflet JS & Fullscreen plugin -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
+<script>
+let mapInstance = null;
 
-    <section class="track-issues-section">
-        <h1>Track Reported Issues</h1>
-        <table id="issuesTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Location</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Pre-written demo content -->
-                <tr>
-                    <td>1</td>
-                    <td>Pothole on Main St</td>
-                    <td>Large pothole causing traffic issues</td>
-                    <td>Road</td>
-                    <td>Main Street, City Center</td>
-                    <td><span class="status Submitted">Submitted</span></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Streetlight not working</td>
-                    <td>The streetlight near the park is not working</td>
-                    <td>Electricity</td>
-                    <td>Park Avenue, Block 5</td>
-                    <td><span class="status In Progress">In Progress</span></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Overflowing Trash Bin</td>
-                    <td>Garbage bin overflowing near school</td>
-                    <td>Sanitation</td>
-                    <td>School Road, West End</td>
-                    <td><span class="status Resolved">Resolved</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+document.querySelectorAll('.view-map').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const lat = parseFloat(btn.dataset.lat);
+        const lng = parseFloat(btn.dataset.lng);
+        const imageUrl = btn.dataset.image; 
+        const container = document.getElementById('mapContainer');
+        const imagePanel = document.getElementById('imagePanel');
 
-    <footer>
-        <p>&copy; 2025 Civic Sense Reporting System | All Rights Reserved</p>
-    </footer>
+        // Show the map container only when button clicked
+        container.style.display = 'flex';
+
+        // Update the image panel
+        if (imageUrl) {
+            imagePanel.innerHTML = `<img src="${imageUrl}" alt="Issue photo">`;
+        } else {
+            imagePanel.innerHTML = '<p><em>No photo available</em></p>';
+        }
+
+        // Initialize or update the map
+        if (!mapInstance) {
+            mapInstance = L.map('mapBox', { fullscreenControl: true }).setView([lat, lng], 15);
+            L.tileLayer(
+                'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                { attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics' }
+            ).addTo(mapInstance);
+            L.marker([lat, lng]).addTo(mapInstance);
+        } else {
+            mapInstance.setView([lat, lng], 19);
+            // Clear existing markers
+            mapInstance.eachLayer(layer => {
+                if (layer instanceof L.Marker) {
+                    mapInstance.removeLayer(layer);
+                }
+            });
+            L.marker([lat, lng]).addTo(mapInstance);
+        }
+    });
+});
+</script>
 </body>
-
 </html>
