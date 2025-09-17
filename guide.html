@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Sense Guide</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            background-color: #e6f2f8; /* Soft light blue background for page */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header / Navbar */
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 15px 20px;
+        }
+
+        header h1 {
+            display: inline-block;
+            font-size: 24px;
+        }
+
+        nav {
+            float: right;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #1abc9c;
+        }
+
+        /* Main content */
+        main {
+            flex: 1;
+            padding: 30px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            background-color: #1abc9c;
+            color: #fff;
+            padding: 30px 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .welcome-section h2 {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-section p {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        p, ul {
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        /* Card style for tips with soft background */
+        .tip-card {
+            background-color: #f0f8ff; /* Light pastel blue instead of white */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #1abc9c;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 15px 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media(max-width: 600px) {
+            nav {
+                float: none;
+                margin-top: 10px;
+            }
+
+            header h1 {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header>
+        <h1>Civic Sense Guide</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="track-issue.html">Track Issue</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h2>Welcome to the Civic Sense Guide</h2>
+            <p>This guide helps citizens understand the importance of civic sense, cleanliness, and responsibility towards society. By following simple habits, everyone can contribute to a healthier, safer, and more responsible community. Together, we can make our cities cleaner, greener, and more livable for all.</p>
+        </div>
+
+        <!-- Tips -->
+        <div class="tip-card">
+            <h3>1. Keep Your Surroundings Clean</h3>
+            <p>Dispose of waste properly in dustbins and segregate recyclable and non-recyclable materials. Avoid littering in streets, parks, rivers, and public spaces. Encourage your neighbors and friends to do the same. Participating in community clean-up drives is a great way to make a positive impact and inspire others.</p>
+        </div>
+
+        <div class="tip-card">
+            <h3>2. Respect Traffic Rules</h3>
+            <p>Follow traffic signals, pedestrian crossings, and speed limits. Wear helmets and seat belts, and avoid using mobile phones while driving. Respecting traffic rules reduces accidents and ensures the safety of everyone on the road. Educate children and family members about safe road behavior.</p>
+        </div>
+
+        <div class="tip-card">
+            <h3>3. Preserve Public Property</h3>
+            <p>Do not damage benches, streetlights, playgrounds, public buildings, or signage. Vandalism increases maintenance costs and degrades community spaces. Report damaged public property to authorities and participate in restoration or beautification initiatives whenever possible.</p>
+        </div>
+
+        <div class="tip-card">
+            <h3>4. Save Water and Energy</h3>
+            <ul>
+                <li>Turn off taps when not in use and fix leaks promptly.</li>
+                <li>Switch off lights and appliances when not needed.</li>
+                <li>Support and adopt renewable energy sources whenever possible.</li>
+                <li>Teach family and friends about conserving resources.</li>
+            </ul>
+            <p>Conserving water and energy reduces environmental strain and ensures sustainability for future generations.</p>
+        </div>
+
+        <div class="tip-card">
+            <h3>5. Be Polite and Respectful</h3>
+            <p>Respect others’ opinions, be courteous, and avoid conflicts in public spaces. Simple gestures like greeting neighbors, helping elderly or differently-abled people, and maintaining calm during disagreements foster a harmonious community. Being respectful strengthens social bonds and creates a safer environment for everyone.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Civic Sense Reporting System | All Rights Reserved</p>
+    </footer>
+</body>
+</html>

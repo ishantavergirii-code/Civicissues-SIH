@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report Issue - Civic Sense</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Header */
+    header {
+        background-color: #2c3e50;
+        color: #fff;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    header nav ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+
+    header nav ul li {
+        margin-left: 20px;
+    }
+
+    header nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    header nav ul li a.active,
+    header nav ul li a:hover {
+        background-color: #1abc9c;
+        color: #fff;
+    }
+
+    /* Form Section */
+    .report-form-section, .success-page {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        text-align: center;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+
+    .report-form-section.hidden, .success-page.hidden {
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .report-form-section h1, .success-page h2 {
+        margin-bottom: 25px;
+        color: #2c3e50;
+    }
+
+    .report-form-section label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #2c3e50;
+        text-align: left;
+    }
+
+    .report-form-section input,
+    .report-form-section textarea,
+    .report-form-section select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .report-form-section button.btn,
+    .success-page .btn {
+        background-color: #1abc9c;
+        color: #fff;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .report-form-section button.btn:hover,
+    .success-page .btn:hover {
+        background-color: #16a085;
+    }
+
+    /* Success Page */
+    .success-page {
+        display: none;
+        padding: 80px 20px;
+        min-height: 60vh;
+        background-color: #f4f7f9;
+    }
+
+    .success-page .completion-icon {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        border-radius: 50%;
+        background-color: #2ecc71;
+        color: #fff;
+        font-size: 60px;
+        margin-bottom: 30px;
+        transform: scale(0);
+        animation: pop 0.5s forwards;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    .success-page h2 {
+        font-size: 36px;
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+
+    .success-page p {
+        font-size: 20px;
+        color: #34495e;
+        margin-bottom: 30px;
+    }
+</style>
+</head>
+<body>
+<header>
+    <div class="logo">CivicSense</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" class="active">Report Issue</a></li>
+            <li><a href="track.html">Track Issue</a></li>
+            <li><a href="guide.html">Civic Sense Guide</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Report Form Section -->
+<section class="report-form-section" id="reportSection">
+    <h1>Report an Issue in Your Area</h1>
+    <form id="reportForm" enctype="multipart/form-data">
+        <label for="title">Issue Title</label>
+        <input type="text" id="title" name="title" placeholder="Enter issue title" required>
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" placeholder="Describe the issue" required></textarea>
+
+        <label for="category">Category</label>
+        <select id="category" name="category" required>
+            <option value="">Select category</option>
+            <option value="Road">Road</option>
+            <option value="Electricity">Electricity</option>
+            <option value="Water">Water</option>
+            <option value="Sanitation">Sanitation</option>
+            <option value="Others">Others</option>
+        </select>
+
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" placeholder="Enter your location" required>
+
+        <label for="image">Upload Image (optional)</label>
+        <input type="file" id="image" name="image" accept="image/*">
+
+        <button type="submit" class="btn">Submit Issue</button>
+    </form>
+</section>
+
+<!-- Success Page -->
+<section class="success-page" id="successPage">
+    <div class="completion-icon">&#10003;</div>
+    <h2>Thank You!</h2>
+    <p>Your issue has been successfully submitted.</p>
+    <a href="track.html" class="btn">Track Issue</a>
+</section>
+
+<script>
+    const form = document.getElementById('reportForm');
+    const successPage = document.getElementById('successPage');
+    const reportSection = document.getElementById('reportSection');
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault(); // Prevent actual form submission
+
+        // Animate fade-out of form
+        reportSection.classList.add('hidden');
+        setTimeout(() => {
+            reportSection.style.display = 'none';
+
+            // Show success page with fade-in
+            successPage.style.display = 'block';
+            setTimeout(() => successPage.classList.remove('hidden'), 50);
+        }, 500);
+    });
+</script>
+</body>
+</html>

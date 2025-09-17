@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Civic Sense</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li {
+            margin-left: 20px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        header nav ul li a.active,
+        header nav ul li a:hover {
+            background-color: #1abc9c;
+            color: #fff;
+        }
+
+        /* Dashboard Section */
+        .admin-dashboard {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .admin-dashboard h1 {
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .controls input,
+        .controls select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            width: 48%;
+        }
+
+        /* Issue Cards */
+        .issue-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            transition: transform 0.2s;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .issue-details {
+            flex: 2;
+        }
+
+        .issue-details p {
+            margin: 5px 0;
+        }
+
+        .issue-details .title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+
+        .status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: #fff;
+            display: inline-block;
+        }
+
+        .Submitted { background-color: #3498db; }
+        .UnderReview { background-color: #f39c12; }
+        .InProgress { background-color: #9b59b6; }
+        .Resolved { background-color: #2ecc71; }
+
+        .issue-actions {
+            flex: 1;
+            text-align: right;
+        }
+
+        .issue-actions select, .issue-actions button {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .issue-actions button {
+            background-color: #1abc9c;
+            color: #fff;
+            border: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .issue-actions button:hover {
+            background-color: #16a085;
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .controls input,
+            .controls select {
+                width: 100%;
+            }
+
+            .issue-actions {
+                text-align: left;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">CivicSense Admin</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" class="active">Admin Dashboard</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="admin-dashboard">
+    <h1>Reported Issues Dashboard</h1>
+
+    <div class="controls">
+        <input type="text" id="searchInput" placeholder="Search by title or user">
+        <select id="statusFilter">
+            <option value="all">All Status</option>
+            <option value="Submitted">Submitted</option>
+            <option value="Under Review">Under Review</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+        </select>
+    </div>
+
+    <!-- Issue Cards -->
+    <div class="issue-card">
+        <div class="issue-details">
+            <p class="title">Pothole on Main Street</p>
+            <p>Category: Road</p>
+            <p>Submitted By: John Doe</p>
+            <p>Date: 16-09-2025</p>
+            <span class="status Submitted">Submitted</span>
+        </div>
+        <div class="issue-actions">
+            <select class="updateStatus">
+                <option value="Submitted">Submitted</option>
+                <option value="Under Review">Under Review</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+            <button class="updateBtn">Update</button>
+        </div>
+    </div>
+
+    <div class="issue-card">
+        <div class="issue-details">
+            <p class="title">Street light not working</p>
+            <p>Category: Electricity</p>
+            <p>Submitted By: Jane Smith</p>
+            <p>Date: 15-09-2025</p>
+            <span class="status UnderReview">Under Review</span>
+        </div>
+        <div class="issue-actions">
+            <select class="updateStatus">
+                <option value="Submitted">Submitted</option>
+                <option value="Under Review">Under Review</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+            <button class="updateBtn">Update</button>
+        </div>
+    </div>
+
+    <div class="issue-card">
+        <div class="issue-details">
+            <p class="title">Garbage collection missed in Ward 5</p>
+            <p>Category: Sanitation</p>
+            <p>Submitted By: Rajesh Kumar</p>
+            <p>Date: 14-09-2025</p>
+            <span class="status InProgress">In Progress</span>
+        </div>
+        <div class="issue-actions">
+            <select class="updateStatus">
+                <option value="Submitted">Submitted</option>
+                <option value="Under Review">Under Review</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+            <button class="updateBtn">Update</button>
+        </div>
+    </div>
+
+    <div class="issue-card">
+        <div class="issue-details">
+            <p class="title">Water leakage in Park Avenue</p>
+            <p>Category: Water Supply</p>
+            <p>Submitted By: Priya Sharma</p>
+            <p>Date: 13-09-2025</p>
+            <span class="status Resolved">Resolved</span>
+        </div>
+        <div class="issue-actions">
+            <select class="updateStatus">
+                <option value="Submitted">Submitted</option>
+                <option value="Under Review">Under Review</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+            <button class="updateBtn">Update</button>
+        </div>
+    </div>
+
+    <div class="issue-card">
+        <div class="issue-details">
+            <p class="title">Broken bench in Central Park</p>
+            <p>Category: Public Amenities</p>
+            <p>Submitted By: Ankit Verma</p>
+            <p>Date: 12-09-2025</p>
+            <span class="status Submitted">Submitted</span>
+        </div>
+        <div class="issue-actions">
+            <select class="updateStatus">
+                <option value="Submitted">Submitted</option>
+                <option value="Under Review">Under Review</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+            <button class="updateBtn">Update</button>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    // Update status color dynamically
+    const updateButtons = document.querySelectorAll('.updateBtn');
+    updateButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const card = btn.closest('.issue-card');
+            const select = card.querySelector('.updateStatus');
+            const statusLabel = card.querySelector('.status');
+            statusLabel.textContent = select.value;
+            statusLabel.className = 'status ' + select.value.replace(/\s/g, '');
+        });
+    });
+</script>
+
+</body>
+</html>
